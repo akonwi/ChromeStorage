@@ -16,7 +16,7 @@ Object.defineProperties(ChromeStorage, {
         storage.set(toSave, function() {
           if (runtime.lastError)
             return reject(runtime.lastError)
-          resolve(toSave)
+          resolve()
         })
       })
     }
