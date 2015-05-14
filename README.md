@@ -18,8 +18,11 @@ Just drop in the `src/index.js` file into your project and you're good to go.
     console.log("my name is", data.name)
   })
 
-  ChromeStorage.remove('name').then(function() {
+  var promise = ChromeStorage.remove('name').then(function() {
     // continue..
+  })
+  promise.catch(function(error) {
+    console.error(error)
   })
 ```
 
