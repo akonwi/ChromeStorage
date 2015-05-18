@@ -3,6 +3,19 @@ var runtime = chrome.runtime
 
 ChromeStorage = {}
 Object.defineProperties(ChromeStorage, {
+  _VERSION: {
+    value: '0.0.1'
+  },
+  onChange: {
+    value: function(listener) {
+      chrome.storage.onChanged.addListener(listener)
+    }
+  },
+  unsubscribe: {
+    value: function(listener) {
+      chrome.storage.onChanged.removeListener(listener)
+    }
+  },
   /**
    * Save something
    *
@@ -16,7 +29,7 @@ Object.defineProperties(ChromeStorage, {
         storage.set(toSave, function() {
           if (runtime.lastError)
             return reject(runtime.lastError)
-          resolve()
+          resolve(val)
         })
       })
     }

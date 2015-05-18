@@ -1,4 +1,40 @@
 describe("ChromeStorage", function() {
+  describe("subscription", function() {
+    beforeEach(function(done) {
+      chrome.storage.sync.set({ test: 'akonwi' }, done)
+    })
+    it("change events can be listened to", function(done) {
+      var _done = function () {
+        done()
+        chrome.storage.onChanged.removeListener(listener)
+      }
+      var listener = function(changes) {
+        expect(changes.test).toBeTruthy()
+        expect(changes.test.oldValue).toBe('akonwi')
+        expect(changes.test.newValue).toBe('akon')
+        _done()
+      }
+      ChromeStorage.onChange(listener)
+      ChromeStorage.set('test', 'akon')
+    })
+
+    it("a listener can stop listening to change events", function(done) {
+      var listener = {
+        listen: function(changes) {
+          expect(true).toBeTruthy()
+        }
+      }
+      spyOn(listener, 'listen')
+      ChromeStorage.onChange(listener.listen)
+      ChromeStorage.unsubscribe(listener.listen)
+      ChromeStorage.remove('test')
+      .then(function() {
+        expect(listener.listen).not.toHaveBeenCalled()
+        done()
+      })
+    })
+  })
+
   describe("it's methods", function() {
     it("::set returns a promise", function(done) {
       ChromeStorage.set('name', 'akonwi').then(function(obj) {
