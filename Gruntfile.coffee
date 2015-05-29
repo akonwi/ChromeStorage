@@ -1,17 +1,16 @@
 module.exports = (grunt) ->
   grunt.initConfig
-    sass:
+    babel:
+      options:
+        sourceMap: true
       dist:
-        options:
-          style: 'compressed'
-          update: true
         files:
-          'styles.css': 'styles.sass'
+          'dist/chrome-storage.js': 'src/index.js'
     watch:
-      styles:
-        files: 'styles.sass'
-        tasks: 'sass'
+      es6:
+        files: 'src/index.js'
+        tasks: 'babel'
 
-  grunt.loadNpmTasks 'grunt-contrib-sass'
+  grunt.loadNpmTasks 'grunt-babel'
   grunt.loadNpmTasks 'grunt-contrib-watch'
-  grunt.registerTask 'default', ['sass', 'watch']
+  grunt.registerTask 'default', ['babel', 'watch']
