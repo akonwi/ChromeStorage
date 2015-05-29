@@ -6,11 +6,19 @@ Object.defineProperties(ChromeStorage, {
   _VERSION: {
     value: '0.0.1'
   },
+  /**
+   * @param callback to run when data changes
+   *   function(changes) {}
+   */
   onChange: {
     value: function(listener) {
       chrome.storage.onChanged.addListener(listener)
     }
   },
+  
+  /**
+   * @param callback to remove from data changes
+   */
   unsubscribe: {
     value: function(listener) {
       chrome.storage.onChanged.removeListener(listener)
