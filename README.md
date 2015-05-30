@@ -2,7 +2,7 @@
 
 A straightforward, promise-based API for working with storage in Chrome extensions.
 
-Just drop in the `src/index.js` file into your project and you're good to go.
+Just drop in the `dist/chrome-storage.js` file into your project and you're good to go.
 
 ###Examples:
 ``` javascript
