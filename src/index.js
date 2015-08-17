@@ -5,7 +5,7 @@ const {runtime} = chrome
 let ChromeStorage = {}
 Object.defineProperties(ChromeStorage, {
   _VERSION: {
-    value: '0.0.2'
+    value: '0.0.3'
   },
 
   /**
