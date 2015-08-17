@@ -104,3 +104,5 @@ Object.defineProperties(ChromeStorage, {
   }
 })
 Object.preventExtensions(ChromeStorage)
+
+export default ChromeStorage

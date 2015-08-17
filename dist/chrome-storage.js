@@ -1,6 +1,9 @@
 'use strict';
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-function _defineProperty(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var storage = chrome.storage.sync;
 var _chrome = chrome;
@@ -91,7 +94,7 @@ Object.defineProperties(ChromeStorage, {
    */
   remove: {
     value: function value(key) {
-      if (key === undefined) throw new Error('No keys given to remove');
+      if (key === undefined) throw new Error("No keys given to remove");
       return new Promise(function (resolve, reject) {
         storage.remove(key, function () {
           if (runtime.lastError) return reject(runtime.lastError);
@@ -102,4 +105,7 @@ Object.defineProperties(ChromeStorage, {
   }
 });
 Object.preventExtensions(ChromeStorage);
+
+exports['default'] = ChromeStorage;
+module.exports = exports['default'];
 //# sourceMappingURL=chrome-storage.js.map
