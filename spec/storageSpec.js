@@ -1,7 +1,9 @@
+var storage = ChromeStorage("local")
+
 describe("ChromeStorage", function() {
   describe("subscription", function() {
     beforeEach(function(done) {
-      chrome.storage.sync.set({ test: 'akonwi' }, done)
+      chrome.storage.local.set({ test: 'akonwi' }, done)
     })
     it("change events can be listened to", function(done) {
       var _done = function () {
@@ -14,8 +16,8 @@ describe("ChromeStorage", function() {
         expect(changes.test.newValue).toBe('akon')
         _done()
       }
-      ChromeStorage.onChange(listener)
-      ChromeStorage.set('test', 'akon')
+      storage.onChange(listener)
+      storage.set('test', 'akon')
     })
 
     it("a listener can stop listening to change events", function(done) {
@@ -25,9 +27,9 @@ describe("ChromeStorage", function() {
         }
       }
       spyOn(listener, 'listen')
-      ChromeStorage.onChange(listener.listen)
-      ChromeStorage.unsubscribe(listener.listen)
-      ChromeStorage.remove('test')
+      storage.onChange(listener.listen)
+      storage.unsubscribe(listener.listen)
+      storage.remove('test')
       .then(function() {
         expect(listener.listen).not.toHaveBeenCalled()
         done()
@@ -37,22 +39,22 @@ describe("ChromeStorage", function() {
 
   describe("it's methods", function() {
     it("::set returns a promise", function(done) {
-      ChromeStorage.set('name', 'akonwi').then(function(obj) {
+      storage.set('name', 'akonwi').then(function(obj) {
         expect(true).toBeTruthy()
         done()
       })
     })
 
     it("::get returns a promise", function(done) {
-      ChromeStorage.get('name').then(function(value) {
+      storage.get('name').then(function(value) {
         expect(value).toBe('akonwi')
         done()
       })
     })
 
     it("::all returns a promise", function(done) {
-      ChromeStorage.set('age', 22).then(function() {
-        return ChromeStorage.all()
+      storage.set('age', 22).then(function() {
+        return storage.all()
       }).then(function(data) {
         expect(data.name).toBe('akonwi')
         expect(data.age).toEqual(22)
@@ -61,8 +63,8 @@ describe("ChromeStorage", function() {
     })
 
     it("::remove returns a promise", function(done) {
-      ChromeStorage.remove('age').then(function() {
-        return ChromeStorage.get('age')
+      storage.remove('age').then(function() {
+        return storage.get('age')
       }).then(function(value) {
         expect(value).toBeFalsy()
         done()
@@ -70,43 +72,43 @@ describe("ChromeStorage", function() {
     })
 
     it("::remove throws an error when given empty params", function() {
-      expect(ChromeStorage.remove).toThrowError("No keys given to remove")
+      expect(storage.remove).toThrowError("No keys given to remove")
     })
   })
 
   describe("its immutability", function() {
     it("can't be extended with new properties", function(){
-      ChromeStorage.newAttribute = 'hey there'
-      expect(ChromeStorage.newAttribute).toBeUndefined()
+      storage.newAttribute = 'hey there'
+      expect(storage.newAttribute).toBeUndefined()
     })
 
     it("has an immutable ::set method", function(done) {
-      ChromeStorage.set = function() { return 'foobar' }
-      ChromeStorage.set('name', 'immutable').then(function() {
+      storage.set = function() { return 'foobar' }
+      storage.set('name', 'immutable').then(function() {
         expect(true).toBeTruthy()
         done()
       })
     })
 
     it("has an immutable ::get method", function(done) {
-      ChromeStorage.get = function() { return 'foobar' }
-      ChromeStorage.get('name').then(function(value) {
+      storage.get = function() { return 'foobar' }
+      storage.get('name').then(function(value) {
         expect(value).toBe('immutable')
         done()
       })
     })
 
     it("has an immutable ::all method", function(done) {
-      ChromeStorage.all = function() { return 'foobar' }
-      ChromeStorage.all().then(function(data) {
+      storage.all = function() { return 'foobar' }
+      storage.all().then(function(data) {
         expect(data.name).toBe('immutable')
         done()
       })
     })
 
     it("has an immutable ::remove method", function(done) {
-      ChromeStorage.remove = function() { return 'foobar' }
-      ChromeStorage.remove('name').then(function() {
+      storage.remove = function() { return 'foobar' }
+      storage.remove('name').then(function() {
         expect(true).toBeTruthy()
         done()
       })
