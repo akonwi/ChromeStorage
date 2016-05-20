@@ -2,25 +2,30 @@
 
 A straightforward, promise-based API for working with storage in Chrome extensions.
 
-Just drop in the `src/index.js` file into your project and transpile it into es5
+Just drop in the `src/index.js` file into your project and transpile it into es5. If you're not using es6, the vanilla js version is in the `dist/` folder.
+
+### Constructor function
+The default export is a constructor function. It takes one argument, which persistence to use ("local" or "sync")
 
 ###Examples:
 ``` javascript
 import ChromeStorage from '../lib/chrome-storage'
 
-ChromeStorage.set('name', 'akonwi').then(function() {
+const store = ChromeStorage('sync')
+
+store.set('name', 'akonwi').then(function() {
   // continue...
 })
 
-ChromeStorage.get('name').then(function(name) {
+store.get('name').then(function(name) {
   console.log("my name is", name)
 })
 
-ChromeStorage.all().then(function(data) {
+store.all().then(function(data) {
   console.log("my name is", data.name)
 })
 
-var promise = ChromeStorage.remove('name').then(function() {
+let promise = store.remove('name').then(function() {
   // continue..
 })
 promise.catch(function(error) {
@@ -28,5 +33,5 @@ promise.catch(function(error) {
 })
 ```
 
-If for some reason you need to extend the ChromeStorage object, you'll have to use `Object.create(ChromeStorage)`
-because ChromeStorage is immutable.
+If for some reason you need to extend the storage object, you'll have to use `Object.create(storage)`
+because each instance of ChromeStorage is immutable.
