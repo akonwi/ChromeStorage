@@ -82,8 +82,7 @@ export default function(type=null) {
       value() {
         return new Promise((resolve, reject) => {
           storage.get(null, (items) => {
-            if (runtime.lastError)
-            return reject(runtime.lastError)
+            if (runtime.lastError) return reject(runtime.lastError)
             resolve(items)
           })
         })

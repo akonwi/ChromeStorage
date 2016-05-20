@@ -1,10 +1,6 @@
-module = {}
-exports = window
+var listeners = []
 
-var listeners = new WeakSet()
-var ls = []
-
-d = {}
+var d = {}
 
 var set = function(o, cb) {
   var changes = {}
@@ -15,7 +11,7 @@ var set = function(o, cb) {
     }
     d[k] = o[k]
   }
-  ls.forEach(l => l(changes))
+  listeners.forEach(l => l(changes))
   cb()
 };
 
@@ -31,7 +27,7 @@ var remove = function(k, cb) {
   cb()
 }
 
-chrome = {
+global.chrome = {
   runtime: {
     lastError: undefined
   },
@@ -40,12 +36,10 @@ chrome = {
     sync: {},
     onChanged: {
       addListener: (l) => {
-        listeners.add(l)
-        ls.push(l)
+        listeners.push(l)
       },
       removeListener: (l) => {
-        listeners.delete(l)
-        ls = []
+        listeners = []
       }
     }
   }
