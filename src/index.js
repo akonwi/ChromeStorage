@@ -65,8 +65,6 @@ export default function(type=null) {
       value(key) {
         return new Promise((resolve, reject) => {
           storage.get(key, (results) => {
-            if (key.trim !== undefined)
-            results = results[key]
             if (runtime.lastError)
             return reject(runtime.lastError)
             resolve(results)

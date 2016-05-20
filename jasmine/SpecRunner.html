@@ -6,18 +6,17 @@
 
   <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.3.4/jasmine_favicon.png">
   <link rel="stylesheet" href="lib/jasmine-2.3.4/jasmine.css">
-  <style>
-    html {
-      width: 400px;
-    }
-  </style>
   <script src="lib/jasmine-2.3.4/jasmine.js"></script>
   <script src="lib/jasmine-2.3.4/jasmine-html.js"></script>
   <script src="lib/jasmine-2.3.4/boot.js"></script>
 
   <!-- include source files here... -->
+  <script src="../spec/chrome-mock.js"></script>
   <script src="../dist/chrome-storage.js"></script>
 
+  <script type="text/javascript">
+    ChromeStorage = exports.default;
+  </script>
   <!-- include spec files here... -->
   <script src="../spec/storageSpec.js"></script>
 

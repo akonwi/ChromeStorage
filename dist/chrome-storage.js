@@ -70,7 +70,6 @@ exports['default'] = function () {
       value: function value(key) {
         return new Promise(function (resolve, reject) {
           storage.get(key, function (results) {
-            if (key.trim !== undefined) results = results[key];
             if (runtime.lastError) return reject(runtime.lastError);
             resolve(results);
           });
