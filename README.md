@@ -16,22 +16,22 @@ import ChromeStorage from '../lib/chrome-storage'
 
 const store = ChromeStorage('sync')
 
-store.set('name', 'akonwi').then(function() {
+store.set('name', 'akonwi').then(() => {
   // continue...
 })
 
-store.get('name').then(function(name) {
+store.get('name').then((name) => {
   console.log("my name is", name)
 })
 
-store.all().then(function(data) {
+store.all().then((data) => {
   console.log("my name is", data.name)
 })
 
-let promise = store.remove('name').then(function() {
+let promise = store.remove('name').then(() => {
   // continue..
 })
-promise.catch(function(error) {
+promise.catch((error) => {
   console.error(error)
 })
 ```
