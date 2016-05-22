@@ -8,13 +8,25 @@ test("Constructor function throws an error if a persistence is not specified", f
 })
 
 test("ChromeStorage instance", function(t) {
+  t.plan(4)
   var storage = ChromeStorage('local')
 
-  t.ok(storage.get('foo').then.call, "get method returns a promise")
-  t.ok(storage.set('foo', 'bar').then.call, "set method returns a promise")
-  t.ok(storage.all().then.call, "all method returns a promise")
-  t.ok(storage.remove('foo').then.call, "remove method returns a promise")
-  t.end()
+  storage.set('foo', 'bar').then(function() {
+    t.pass("::set method returns a promise")
+    return storage.get('foo')
+  })
+  .then(function(value) {
+    t.is(value, 'bar', "::get method promises a value")
+    return storage.all()
+  })
+  .then(function(data) {
+    t.deepEquals(data, {foo: 'bar'}, "::all method promises everything")
+    return storage.remove('foo')
+  })
+  .then(function() {
+    t.pass("::remove method returns a promise")
+  })
+
 })
 
 test("ChromeStorage immutability", function(t) {

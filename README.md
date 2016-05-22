@@ -2,7 +2,10 @@
 
 A straightforward, promise-based API for working with storage in Chrome extensions.
 
-Just drop in the `src/index.js` file into your project and transpile it into es5. If you're not using es6, the vanilla js version is in the `dist/` folder.
+Just drop in the `src/index.js` file into your project and transpile it into es5. If you're not using es6, the vanilla js version is in the `dist/` folder and it's a commonjs module.
+
+### Tests
+`tape spec/chrome-storage-spec.js`
 
 ### Constructor function
 The default export is a constructor function. It takes one argument, which persistence to use ("local" or "sync")
