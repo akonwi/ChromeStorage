@@ -8,7 +8,7 @@ Just drop in the `src/index.js` file into your project and transpile it into es5
 `tape spec/chrome-storage-spec.js`
 
 ### Create function
-The default export is a factory function. It takes one argument and that is which persistence to use ("local" or "sync")
+The module exports a factory function `create` which takes one argument and that is which persistence to use (`ChromeStorage.LOCAL || ChromeStorage.SYNC`)
 
 ###Examples:
 ``` javascript
