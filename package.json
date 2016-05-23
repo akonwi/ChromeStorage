@@ -1,6 +1,6 @@
 {
   "name": "ChromeStorage",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "devDependencies": {
     "babel": "^5.4.7",
     "grunt": "^0.4.5",

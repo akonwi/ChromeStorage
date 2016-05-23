@@ -7,14 +7,14 @@ Just drop in the `src/index.js` file into your project and transpile it into es5
 ### Tests
 `tape spec/chrome-storage-spec.js`
 
-### Constructor function
-The default export is a constructor function. It takes one argument, which persistence to use ("local" or "sync")
+### Create function
+The default export is a factory function. It takes one argument and that is which persistence to use ("local" or "sync")
 
 ###Examples:
 ``` javascript
-import ChromeStorage from '../lib/chrome-storage'
+import * as ChromeStorage from '../lib/chrome-storage'
 
-const store = ChromeStorage('sync')
+const store = ChromeStorage.create(ChromeStorage.SYNC)
 
 store.set('name', 'akonwi').then(function() {
   // continue...

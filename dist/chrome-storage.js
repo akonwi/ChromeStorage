@@ -3,12 +3,19 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+exports.create = create;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var version = { value: '0.0.4' };
 
-exports['default'] = function () {
+var LOCAL = "local";
+exports.LOCAL = LOCAL;
+var SYNC = "sync";
+
+exports.SYNC = SYNC;
+
+function create() {
   var type = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
   var _chrome = chrome;
   var runtime = _chrome.runtime;
@@ -16,7 +23,7 @@ exports['default'] = function () {
   var storage = null;
 
   if (type === null) throw new Error("Please specify which type of storage to use. (local or sync)");
-  if (type === "local") storage = chrome.storage.local;else if (type === "sync") storage = chrome.storage.sync;
+  if (type === LOCAL) storage = chrome.storage.local;else if (type === SYNC) storage = chrome.storage.sync;
 
   var ChromeStorage = {};
   Object.defineProperties(ChromeStorage, {
@@ -111,7 +118,5 @@ exports['default'] = function () {
     }
   });
   return Object.preventExtensions(ChromeStorage);
-};
-
-module.exports = exports['default'];
+}
 //# sourceMappingURL=chrome-storage.js.map

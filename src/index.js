@@ -1,15 +1,18 @@
 'use strict'
 
-const version = { value: '0.0.4' }
+const version = { value: '1.0.0' }
 
-export default function(type=null) {
+export const LOCAL = "local"
+export const SYNC = "sync"
+
+export function create(type=null) {
   const {runtime} = chrome
   let storage = null
 
   if (type === null) throw new Error("Please specify which type of storage to use. (local or sync)")
-  if (type === "local")
+  if (type === LOCAL)
     storage = chrome.storage.local
-  else if (type === "sync")
+  else if (type === SYNC)
     storage = chrome.storage.sync
 
   let ChromeStorage = {}

@@ -1,15 +1,16 @@
 var test = require('tape')
 require('./mock')
 var ChromeStorage = require('../dist/chrome-storage')
+var create = ChromeStorage.create
 
-test("Constructor function throws an error if a persistence is not specified", function(t) {
-  t.throws(ChromeStorage)
+test("Create function throws an error if a persistence is not specified", function(t) {
+  t.throws(create)
   t.end()
 })
 
 test("ChromeStorage instance", function(t) {
   t.plan(4)
-  var storage = ChromeStorage('local')
+  var storage = create(ChromeStorage.LOCAL)
 
   storage.set('foo', 'bar').then(function() {
     t.pass("::set method returns a promise")
@@ -30,8 +31,8 @@ test("ChromeStorage instance", function(t) {
 })
 
 test("ChromeStorage immutability", function(t) {
-  var storage = ChromeStorage('local')
-  var other = ChromeStorage('local')
+  var storage = create(ChromeStorage.LOCAL)
+  var other = create(ChromeStorage.LOCAL)
 
   other.get = new Function()
   other.set = new Function()
@@ -43,7 +44,7 @@ test("ChromeStorage immutability", function(t) {
 })
 
 test("ChromeStorage allows subscriptions to changes", function(t) {
-  var storage = ChromeStorage('local')
+  var storage = create(ChromeStorage.LOCAL)
   t.plan(1)
 
   var expectedChanges = {
