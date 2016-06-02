@@ -1,6 +1,6 @@
 'use strict'
 
-const version = { value: '1.0.0' }
+const version = { value: '1.0.1' }
 
 export const LOCAL = "local"
 export const SYNC = "sync"
@@ -68,8 +68,8 @@ export function create(type=null) {
       value(key) {
         return new Promise((resolve, reject) => {
           storage.get(key, (results) => {
-            if (runtime.lastError)
-            return reject(runtime.lastError)
+            if (runtime.lastError) return reject(runtime.lastError)
+            if (key.trim !== undefined) results = results[key]
             resolve(results)
           })
         })

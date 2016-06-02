@@ -1,29 +1,26 @@
 var listeners = []
 
-var d = {}
+var data = {}
 
-var set = function(o, cb) {
+var set = function(object, cb) {
   var changes = {}
-  for (var k in o) {
-    changes[k] = {
-      oldValue: d[k],
-      newValue: o[k]
+  for (var key in object) {
+    changes[key] = {
+      oldValue: data[key],
+      newValue: object[key]
     }
-    d[k] = o[k]
+    data[key] = object[key]
   }
   listeners.forEach(l => l(changes))
   cb()
 };
 
 var get = function(k, cb) {
-  if (k === null)
-    cb(d)
-  else
-    cb(d[k])
+  cb(data)
 }
 
 var remove = function(k, cb) {
-  delete d[k]
+  delete data[k]
   cb()
 }
 
@@ -35,10 +32,10 @@ global.chrome = {
     local: { set: set, get: get, remove: remove },
     sync: {},
     onChanged: {
-      addListener: (l) => {
-        listeners.push(l)
+      addListener: (listener) => {
+        listeners.push(listener)
       },
-      removeListener: (l) => {
+      removeListener: (listener) => {
         listeners = []
       }
     }

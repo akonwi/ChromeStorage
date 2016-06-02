@@ -78,6 +78,7 @@ function create() {
         return new Promise(function (resolve, reject) {
           storage.get(key, function (results) {
             if (runtime.lastError) return reject(runtime.lastError);
+            if (key.trim !== undefined) results = results[key];
             resolve(results);
           });
         });
